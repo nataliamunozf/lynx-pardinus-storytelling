@@ -1,0 +1,205 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-6.48011, 37.13705] },
+      "properties": {
+        "nucleo": "Doñana-Aljarafe",
+        "region": "Andalucía",
+        "total_linces": 130,
+        "año": 2023
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-3.56767, 37.97750] },
+      "properties": {
+        "nucleo": "Sierra Morena Oriental (Andalucía)",
+        "region": "Andalucía",
+        "total_linces": 535,
+        "año": 2023
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-4.30707, 37.43863] },
+      "properties": {
+        "nucleo": "Sierras Subbéticas",
+        "region": "Andalucía",
+        "total_linces": 34,
+        "año": 2023
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-5.00525, 37.87914] },
+      "properties": {
+        "nucleo": "Áreas conexión Sierra Morena",
+        "region": "Andalucía",
+        "total_linces": 42,
+        "año": 2023
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-4.14353, 39.56916] },
+      "properties": {
+        "nucleo": "Montes de Toledo",
+        "region": "Castilla-La Mancha",
+        "total_linces": 336,
+        "año": 2023
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-4.43696, 39.38213] },
+      "properties": {
+        "nucleo": "Cabañeros",
+        "region": "Castilla-La Mancha",
+        "total_linces": 2,
+        "año": 2023
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-4.84862, 39.69671] },
+      "properties": {
+        "nucleo": "La Jara",
+        "region": "Castilla-La Mancha",
+        "total_linces": 6,
+        "año": 2023
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-3.40518, 38.68792] },
+      "properties": {
+        "nucleo": "Sierra Morena Oriental (C-La Mancha)",
+        "region": "Castilla-La Mancha",
+        "total_linces": 232,
+        "año": 2023
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-4.61702, 38.80853] },
+      "properties": {
+        "nucleo": "Sierra Morena Occidental",
+        "region": "Castilla-La Mancha",
+        "total_linces": 135,
+        "año": 2023
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-1.65149, 38.49613] },
+      "properties": {
+        "nucleo": "Campos de Hellín",
+        "region": "Castilla-La Mancha",
+        "total_linces": 4,
+        "año": 2023
+      }
+    },  
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-6.07139, 38.50547] },
+      "properties": {
+        "nucleo": "Matachel",
+        "region": "Extremadura",
+        "total_linces": 168,
+        "año": 2023
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-5.86114, 38.86486] },
+      "properties": {
+        "nucleo": "Ortiga",
+        "region": "Extremadura",
+        "total_linces": 28,
+        "año": 2023
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-6.10033, 38.03072] },
+      "properties": {
+        "nucleo": "Valdecigüeñas",
+        "region": "Extremadura",
+        "total_linces": 5,
+        "año": 2023
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-5.90536, 39.60153] },
+      "properties": {
+        "nucleo": "Valdecañas",
+        "region": "Extremadura",
+        "total_linces": 26,
+        "año": 2023
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-5.37224, 39.70954] },
+      "properties": {
+        "nucleo": "Ibores",
+        "region": "Extremadura",
+        "total_linces": 8,
+        "año": 2023
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-6.24177, 39.04634] },
+      "properties": {
+        "nucleo": "Cornalvo",
+        "region": "Extremadura",
+        "total_linces": 6,
+        "año": 2023
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-5.58126, 38.21985] },
+      "properties": {
+        "nucleo": "Sotillo",
+        "region": "Extremadura",
+        "total_linces": 10,
+        "año": 2023
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-5.95020, 39.81485] },
+      "properties": {
+        "nucleo": "Monfragüe",
+        "region": "Extremadura",
+        "total_linces": 1,
+        "año": 2023
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [ -7.64950, 37.67750 ] },
+      "properties": {
+        "nucleo": "Vale do Guadiana",
+        "region": "Portugal",
+        "total_linces": 291,
+        "año": 2023
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-1.69395, 37.69611] },
+      "properties": {
+        "nucleo": "Lorca",
+        "region": "Murcia",
+        "total_linces": 7,
+        "año": 2023
+      }
+    }
+  ]
+}

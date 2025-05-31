@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>El lince ibérico</title>
+  <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+  <link rel="icon" href="assets/favicon.svg" />
+
+  <!-- Mapbox GL JS -->
+  <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v3.8.0/mapbox-gl.js"></script>
+  <link href="https://api.tiles.mapbox.com/mapbox-gl-js/v3.8.0/mapbox-gl.css" rel="stylesheet" />
+
+  <!-- Globe minimap y Scrollama -->
+  <script src="https://cdn.jsdelivr.net/npm/mapbox-gl-globe-minimap@1.2.0/dist/bundle.js"></script>
+  <script src="https://unpkg.com/scrollama"></script>
+
+  <style>
+    body { margin:0; padding:0; font-family:sans-serif; }
+    #map { position:fixed; top:0; bottom:0; width:100vw; }
+    #story { position:relative; z-index:5; }
+    #features { padding-top:10vh; padding-bottom:10vh; }
+    #header { margin:auto; width:100%; position:relative; z-index:5; }
+    #header h1, #header h2, #header p {
+      margin:0; padding:2vh 2vw; text-align:center;
+    }
+    #footer {
+      width:100%; min-height:5vh;
+      padding:2vh 2vw; text-align:center;
+      font-size:13px; position:relative; z-index:5;
+    }
+    .step { padding-bottom:50vh; opacity:0.25; }
+    .step.active { opacity:1; }
+    .step div { padding:25px; font-size:13px; line-height:1.5; }
+    .step img { width:100%; }
+    .centered { width:50vw; margin:0 auto; }
+    .lefty   { width:33vw; margin-left:5vw; }
+    .righty  { width:33vw; margin-left:62vw; }
+    .fully   { width:100%; }
+    .full   { width:100%; }
+    .light   { color:#444; background:#fafafa; }
+    .dark    { color:#fafafa; background:#444; }
+    @media (max-width: 600px) {
+  #header h1 {
+    font-size: 24px;
+  }
+  #header h2 {
+    font-size: 18px;
+  }
+  #header p {
+    font-size: 14px;
+  }
+  .step div {
+    font-size: 15px;
+    padding: 16px;
+    line-height: 1.5;
+  }
+  iframe {
+    width: 100% !important;
+    height: auto !important;
+    aspect-ratio: 16 / 9;
+  }
+  img {
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+  }
+  .lefty, .righty, .centered {
+    width: 90vw;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+  <div id="story"></div>
+  <script src="./config.js"></script>
+  <script>
+    // Helpers de opacidad para onChapterEnter/Exit
+    const layerTypes = {
+      'fill': ['fill-opacity'],
+      'line': ['line-opacity'],
+      'circle': ['circle-opacity','circle-stroke-opacity'],
+      'symbol': ['icon-opacity','text-opacity'],
+      'raster': ['raster-opacity'],
+      'fill-extrusion': ['fill-extrusion-opacity'],
+      'heatmap': ['heatmap-opacity']
+    };
+    function getLayerPaintType(l){ return layerTypes[ map.getLayer(l).type ]; }
+    function setLayerOpacity(o){
+      getLayerPaintType(o.layer).forEach(prop=>{
+        map.setPaintProperty(o.layer, prop, o.opacity);
+      });
+    }
+    // Construcción del DOM Storytelling
+    const story = document.getElementById('story');
+    if (config.title||config.subtitle||config.byline) {
+      const hdr = document.createElement('div');
+      hdr.id = 'header'; hdr.className = config.theme;
+      if (config.title)    hdr.innerHTML += `<h1>${config.title}</h1>`;
+      if (config.subtitle) hdr.innerHTML += `<h2>${config.subtitle}</h2>`;
+      if (config.byline)   hdr.innerHTML += `<p>${config.byline}</p>`;
+      story.appendChild(hdr);
+    }
+    const features = document.createElement('div'); features.id = 'features';
+    const align = { left:'lefty', center:'centered', right:'righty', full:'fully' };
+    config.chapters.forEach((c,i)=>{
+      const step = document.createElement('div');
+      step.id = c.id;
+      step.className = `step ${align[c.alignment] || 'centered'}`;
+      if (i===0) step.classList.add('active');
+      const content = document.createElement('div');
+      content.className = config.theme;
+      if (c.title)       content.innerHTML += `<h2>${c.title}</h2>`;
+      if (c.image)       content.innerHTML += `<img src="${c.image}" />`;
+      if (c.description) content.innerHTML += `${c.description}`;
+      step.appendChild(content);
+      features.appendChild(step);
+    });
+    story.appendChild(features);
+    if (config.footer) {
+      const ftr = document.createElement('div');
+      ftr.id = 'footer'; ftr.className = config.theme;
+      ftr.innerHTML = config.footer;
+      story.appendChild(ftr);
+    }
+    // Inicialización del mapa
+    mapboxgl.accessToken = config.accessToken;
+    const map = new mapboxgl.Map({
+      container:'map', style:config.style,
+      center:config.chapters[0].location.center,
+      zoom:config.chapters[0].location.zoom,
+      bearing:config.chapters[0].location.bearing,
+      pitch:config.chapters[0].location.pitch,
+      interactive:false,
+      projection:config.projection
+    });
+    // Inset minimap
+    if (config.inset) {
+      map.addControl(new GlobeMinimap(config.insetOptions), config.insetPosition);
+    }
+    // Scrollama
+    const scroller = scrollama();
+
+    map.on('load', () => {
+      // 3D terrain + sky (opcional)
+      if (config.use3dTerrain) {
+        map.addSource('mapbox-dem', {
+          type:'raster-dem',
+          url:'mapbox://mapbox.mapbox-terrain-dem-v1',
+          tileSize:512, maxzoom:14
+        });
+        map.setTerrain({ source:'mapbox-dem', exaggeration:1.5 });
+        map.addLayer({
+          id:'sky', type:'sky', paint:{
+            'sky-type':'atmosphere',
+            'sky-atmosphere-sun':[0,0],
+            'sky-atmosphere-sun-intensity':15
+          }
+        });
+      }
+      map.addSource('linces', {
+        type: 'geojson',
+        data: 'linces2023.geojson'
+      });
+      // === DISEÑO BURBUJAS PROPORCIONALES ===
+      map.addLayer({
+        id: 'linces-bubbles',
+        type: 'circle',
+        source: 'linces',
+        paint: {
+           'circle-color': [
+            'match',
+            ['get', 'region'],
+            'Andalucía', '#007a33',
+            'Castilla-La Mancha', '#b81626',
+            'Extremadura', '#4e4e4e',
+            'Murcia', '#fcb714',
+            'Portugal', '#7398d3',
+            '#cccccc' // color por defecto
+        ],
+            'circle-opacity': 0.8,
+            'circle-stroke-color': '#333',
+            'circle-stroke-width': 0.5,
+            'circle-radius': [
+            '+',
+            ['*', ['get', 'total_linces'], 0.10],
+            6    // mínimo de 6 px incluso si total_linces=0
+        ]
+    }
+    
+});
+      // === ETIQUETAS DE LAS BURBUJAS ===
+      map.addLayer({
+    id: 'linces-labels',
+    type: 'symbol',
+    source: 'linces',
+    layout: {
+      'text-field': [
+        'format',
+        ['get','nucleo'], {'font-scale': 1},
+        '\n',
+        ['to-string', ['get','total_linces']], {'font-scale': 1}
+      ],
+      'text-font': ['Arial Unicode MS Bold'],
+      'text-size': 18,
+      'text-line-height': 1.2,
+      'text-allow-overlap': true,
+      'text-ignore-placement': true
+    },
+    paint: {
+      'text-color': '#ffffff',
+      'text-halo-color': '#000000',
+      'text-halo-width': 1.2
+    }
+  });
+      // === SCROLLAMA PARA LOS CHAPTERS ===
+      scroller.setup({ step:'.step', offset:0.5, progress:true })
+        .onStepEnter(resp => {
+          const chap = config.chapters.find(c => c.id === resp.element.id);
+          resp.element.classList.add('active');
+          map[chap.mapAnimation || 'flyTo'](chap.location);
+
+          chap.onChapterEnter.forEach(setLayerOpacity);
+          if (chap.callback) window[chap.callback]();
+        })
+        .onStepExit(() => {
+        });
+      // Recalcula posiciones en caso de resize
+        window.addEventListener('resize', scroller.resize.bind(scroller));
+    });
+  </script>
+</body>
+</html>
