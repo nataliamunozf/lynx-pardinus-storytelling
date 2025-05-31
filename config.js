@@ -141,7 +141,7 @@ var config = {
               <p>Su entorno ha demostrado ser especialmente favorable para la reproducción.</p>
             `,
             location: {
-              center: [-3.6, 39.4],
+              center: [-3.7, 39.4],
               zoom: 6.5,
               pitch: 25,
               bearing: 0
