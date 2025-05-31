@@ -102,7 +102,7 @@ var config = {
             `,
             location: {
               center: [-4.9, 37.75],
-              zoom: 6.3,
+              zoom: 6,
               pitch: 25,
               bearing: 0
             },
@@ -142,7 +142,7 @@ var config = {
             `,
             location: {
               center: [-3.6, 39.4],
-              zoom: 6.8,
+              zoom: 6.5,
               pitch: 25,
               bearing: 0
             },
