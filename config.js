@@ -14,9 +14,8 @@ var config = {
     theme: 'dark',
     use3dTerrain: true, //set true for enabling 3D maps.
     auto: false,
-    title: 'El lince ibérico',
-    subtitle: 'Población salvaje en España y Portugal',
-    byline: 'por Natalia Muñoz Fernández',
+    title: 'El regreso del lince ibérico',
+    subtitle: 'Un recorrido por los territorios donde vuelve a habitar en libertad',
     footer: 'Proyecto creado por Natalia Muñoz Fernández usando <a href="https://github.com/mapbox/storytelling" target="_blank" style="color:#ffffff; text-decoration: underline;">Mapbox Storytelling</a> template y las siguientes fuentes de información y multimedia:<br>' +
     'Censos de linces e información: <a href="http://www.iberlince.eu/index.php/esp/documentos-esp/documentos-del-proyecto/informes-seminarios" target="_blank" style="color:#ffffff; text-decoration: underline;">Proyecto Iberlince</a> / ' +
     '<a href="https://www.miteco.gob.es/es/biodiversidad/temas/inventarios-nacionales/inventario-especies-terrestres/ieet_mamiferos.html" target="_blank" style="color:#ffffff; text-decoration: underline;">MITECO</a> / ' +
