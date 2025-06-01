@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <title>El lince ibérico</title>
   <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
-  <link rel="icon" href="favicon.svg" />
+  <link rel="icon" href="assets/favicon.svg" />
 
   <!-- Mapbox GL JS -->
   <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v3.8.0/mapbox-gl.js"></script>
@@ -162,7 +162,7 @@
       }
       map.addSource('linces', {
         type: 'geojson',
-        data: 'linces2023.geojson'
+        data: 'linces2024.geojson'
       });
       // === DISEÑO BURBUJAS PROPORCIONALES ===
       map.addLayer({
@@ -205,7 +205,7 @@
       ],
       'text-font': ['Arial Unicode MS Bold'],
       'text-size': 14,
-      'text-line-height': 1.1,
+      'text-line-height': 1.2,
       'text-allow-overlap': true,
       'text-ignore-placement': true
     },
@@ -221,7 +221,6 @@
           const chap = config.chapters.find(c => c.id === resp.element.id);
           resp.element.classList.add('active');
           map[chap.mapAnimation || 'flyTo'](chap.location);
-
           chap.onChapterEnter.forEach(setLayerOpacity);
           if (chap.callback) window[chap.callback]();
         })
