@@ -9,7 +9,7 @@ Archivo principal del proyecto. Carga el mapa, define la estructura del DOM y co
 
 - El `mapboxgl.Map`
 - Los callbacks para cada capítulo (capítulos definidos en `config.js`)
-- El GeoJSON de núcleos poblacionales (`linces2024.geojson`)
+- La configuración de las burbujas proporcionales según el número de linces (`circle-radius`) y sus etiquetas (`symbol` con nombre y número)
 - Un diseño responsive básico mediante CSS inline
 
 ### `config.js`
